@@ -1,33 +1,17 @@
-import express, { json } from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { mongoConnection } from './mongoConnection.js';
+import express, { json } from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 
-/*****************************************/
-
-// import route1 from "./routes/route1.js"
-// import route2 from "./routes/route2.js"
-//...
-
-/*****************************************/
+import { mongoConnection } from "./mongoConnection.js";
+import questionsRouter from "./routes/questionsRouter.js";
 
 dotenv.config();
 
-const app = express();
+const app = express().use(cors()).use(json());
 
-app.use(cors());
-app.use(json());
+app.use(questionsRouter);
 
-
-//app.use(route1)
-//app.use(route2)
-//...
-
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-
-    mongoConnection();
-    console.log('Hackaton2 API running!');
-
+app.listen(process.env.PORT || 5000, () => {
+  mongoConnection();
+  console.log("Hackaton2 API running!");
 });
