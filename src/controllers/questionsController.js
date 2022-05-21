@@ -5,7 +5,8 @@ export const getQuestions = async (req, res) => {
   try {
     const questions = await database
       .collection(`${topic}Questions`)
-      .find({ level });
+      .find({ level })
+      .toArray();
     res.status(200).send(questions);
   } catch (error) {
     console.log(error);
